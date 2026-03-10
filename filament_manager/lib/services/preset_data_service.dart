@@ -1,0 +1,278 @@
+import '../models/filament_type.dart';
+import 'database_service.dart';
+
+class PresetDataService {
+  static final List<FilamentType> _presetTypes = [
+    FilamentType(
+      name: '白色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '灰色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '灰色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '红色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '红色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '蓝色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '蓝色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '绿色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '绿色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黄色 Bambu PLA Basic',
+      brand: 'Bambu Lab',
+      material: 'PLA',
+      color: '黄色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 Bambu PETG Basic',
+      brand: 'Bambu Lab',
+      material: 'PETG',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 Bambu PETG Basic',
+      brand: 'Bambu Lab',
+      material: 'PETG',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '透明 Bambu PETG Basic',
+      brand: 'Bambu Lab',
+      material: 'PETG',
+      color: '透明',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 Creality PLA',
+      brand: 'Creality',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 Creality PLA',
+      brand: 'Creality',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '灰色 Creality PLA',
+      brand: 'Creality',
+      material: 'PLA',
+      color: '灰色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '红色 Creality PLA',
+      brand: 'Creality',
+      material: 'PLA',
+      color: '红色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '蓝色 Creality PLA',
+      brand: 'Creality',
+      material: 'PLA',
+      color: '蓝色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 eSun PLA+',
+      brand: 'eSun',
+      material: 'PLA+',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 eSun PLA+',
+      brand: 'eSun',
+      material: 'PLA+',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '红色 eSun PLA+',
+      brand: 'eSun',
+      material: 'PLA+',
+      color: '红色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '蓝色 eSun PLA+',
+      brand: 'eSun',
+      material: 'PLA+',
+      color: '蓝色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 Polymaker PLA',
+      brand: 'Polymaker',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 Polymaker PLA',
+      brand: 'Polymaker',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '灰色 Polymaker PLA',
+      brand: 'Polymaker',
+      material: 'PLA',
+      color: '灰色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 Hatchbox PLA',
+      brand: 'Hatchbox',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 Hatchbox PLA',
+      brand: 'Hatchbox',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '红色 Hatchbox PLA',
+      brand: 'Hatchbox',
+      material: 'PLA',
+      color: '红色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '蓝色 Hatchbox PLA',
+      brand: 'Hatchbox',
+      material: 'PLA',
+      color: '蓝色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 ColorFabb PLA',
+      brand: 'ColorFabb',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 ColorFabb PLA',
+      brand: 'ColorFabb',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 MatterHackers PLA',
+      brand: 'MatterHackers',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 MatterHackers PLA',
+      brand: 'MatterHackers',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '白色 AmazonBasics PLA',
+      brand: 'AmazonBasics',
+      material: 'PLA',
+      color: '白色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+    FilamentType(
+      name: '黑色 AmazonBasics PLA',
+      brand: 'AmazonBasics',
+      material: 'PLA',
+      color: '黑色',
+      isPreset: true,
+      createdAt: DateTime.now(),
+    ),
+  ];
+
+  static Future<void> initializePresetData() async {
+    final existingTypes = await DatabaseService.instance.getAllFilamentTypes();
+    final existingNames = existingTypes.map((t) => t.name).toSet();
+
+    for (final type in _presetTypes) {
+      if (!existingNames.contains(type.name)) {
+        await DatabaseService.instance.insertFilamentType(type);
+      }
+    }
+  }
+
+  static List<FilamentType> getPresetTypes() {
+    return List.from(_presetTypes);
+  }
+}
