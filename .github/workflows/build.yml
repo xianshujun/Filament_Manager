@@ -3,8 +3,14 @@ name: Build and Release
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'filament_manager/**'
+      - '.github/workflows/**'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'filament_manager/**'
+      - '.github/workflows/**'
   workflow_dispatch:
   release:
     types: [ created ]
@@ -87,7 +93,7 @@ jobs:
         with:
           files: |
             ./windows-artifact/filament_manager.exe
-            ./android-artifact/app-release.apv
+            ./android-artifact/app-release.apk
           generate_release_notes: true
           draft: false
           prerelease: false
