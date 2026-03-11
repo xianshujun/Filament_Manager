@@ -21,78 +21,9 @@
 - 数据库：SQLite
 - 平台：Windows、Android
 
-## 快速开始
-
-### 克隆仓库
-
-```bash
-git clone https://github.com/your-username/filament_manager.git
-cd filament_manager
-```
-
-### 安装依赖
-
-```bash
-flutter pub get
-```
-
-### 运行应用
-
-#### Windows
-
-```bash
-flutter run -d windows
-```
-
-#### Android
-
-```bash
-flutter run -d android
-```
-
-#### Linux
-
-```bash
-flutter run -d linux
-```
-
-## 构建发布版本
-
-### Windows
-
-```bash
-flutter build windows --release
-```
-
-生成的文件在：`build/windows/x64/runner/Release/filament_manager.exe`
-
-### Android
-
-```bash
-flutter build apk --release
-```
-
-生成的文件在：`build/app/outputs/flutter-apk/app-release.apk`
-
-## GitHub Actions 自动构建
-
-本项目配置了 GitHub Actions 自动构建流程，支持：
-
-- 自动运行测试
-- 自动构建 Windows 和 Android 应用
-- 自动发布 Release
-- 构建缓存优化
-
-### 触发构建
-
-- 推送代码到 `main` 分支
-- 创建 Pull Request
-- 手动触发（GitHub Actions 页面）
-- 创建 Release
-
 ### 下载构建产物
 
-从 GitHub Actions 页面下载构建产物，或从 Release 页面下载最新版本。
+从 Release 页面下载最新版本。
 
 ## 项目结构
 
@@ -198,4 +129,4 @@ MIT License
 
 ## 联系方式
 
-如有问题，请提交 Issue。
+如有问题，请提交 Issue或者联系我：[邮箱](2776085452@qq.com)
