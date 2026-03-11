@@ -40,25 +40,25 @@ jobs:
           flutter-version: '3.19.0'
           channel: 'stable'
           cache: true
-          cache-key: flutter-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          cache-key: flutter-${{ runner.os }}-${{ hashFiles('filament_manager/pubspec.lock') }}
 
       - name: Install dependencies
-        run: flutter pub get
+        run: cd filament_manager && flutter pub get
 
       - name: Verify Flutter installation
-        run: flutter doctor -v
+        run: cd filament_manager && flutter doctor -v
 
       - name: Run tests
-        run: flutter test
+        run: cd filament_manager && flutter test
 
       - name: Build application
-        run: ${{ matrix.build-command }}
+        run: cd filament_manager && ${{ matrix.build-command }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact-name }}
-          path: ${{ matrix.artifact-path }}
+          path: filament_manager/${{ matrix.artifact-path }}
           retention-days: 30
 
   release:
