@@ -38,7 +38,7 @@ class _FilamentTypePageState extends State<FilamentTypePage> {
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载数据失败: $e')),
+          const SnackBar(content: Text('加载数据失败，请重试')),
         );
       }
     }
@@ -153,7 +153,7 @@ class _FilamentTypePageState extends State<FilamentTypePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('添加失败: $e')),
+            const SnackBar(content: Text('添加失败，请重试')),
           );
         }
       }
@@ -251,7 +251,7 @@ class _FilamentTypePageState extends State<FilamentTypePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('更新失败: $e')),
+            const SnackBar(content: Text('更新失败，请重试')),
           );
         }
       }
@@ -299,7 +299,7 @@ class _FilamentTypePageState extends State<FilamentTypePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('删除失败: $e')),
+            const SnackBar(content: Text('删除失败，请重试')),
           );
         }
       }

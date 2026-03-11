@@ -7,13 +7,16 @@ import '../models/usage_history.dart';
 class DatabaseService {
   static final DatabaseService instance = DatabaseService._init();
   static Database? _database;
+  static Future<Database>? _pendingInit;
 
   DatabaseService._init();
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB('filament_manager.db');
-    return _database!;
+    _pendingInit ??= _initDB('filament_manager.db');
+    final db = await _pendingInit!;
+    _database = db;
+    return db;
   }
 
   Future<Database> _initDB(String filePath) async {

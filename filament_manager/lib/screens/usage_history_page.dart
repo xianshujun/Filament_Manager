@@ -52,7 +52,7 @@ class _UsageHistoryPageState extends State<UsageHistoryPage> {
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载数据失败: $e')),
+          const SnackBar(content: Text('加载数据失败，请重试')),
         );
       }
     }

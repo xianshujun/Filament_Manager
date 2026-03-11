@@ -47,8 +47,12 @@ class FilamentSpoolService {
     required int spoolId,
     required int newRemainingWeight,
   }) async {
+    if (newRemainingWeight < 0) return;
+
     final spool = await getSpoolById(spoolId);
     if (spool == null) return;
+
+    if (newRemainingWeight > spool.initialWeight) return;
 
     final usedWeight = spool.remainingWeight - newRemainingWeight;
     
