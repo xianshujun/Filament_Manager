@@ -17,7 +17,7 @@ class FilamentManagerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '耗材管理',
+      title: '耗材管家',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
       home: const MainPage(),

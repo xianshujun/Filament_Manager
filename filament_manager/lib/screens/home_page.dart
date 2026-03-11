@@ -79,71 +79,77 @@ class _HomePageState extends State<HomePage> {
   Future<void> _showAddSpoolForm(FilamentType type) async {
     final initialWeightController = TextEditingController(text: '1000');
     final remainingWeightController = TextEditingController(text: '1000');
-    bool isInUse = false;
 
     final result = await showDialog<bool>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text('添加耗材卷 - ${type.name}'),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: initialWeightController,
-              decoration: const InputDecoration(
-                labelText: '初始重量 (g)',
-                hintText: '1000',
-                prefixIcon: Icon(Icons.scale),
+      builder: (context) => StatefulBuilder(
+        builder: (context, setState) {
+          bool isInUse = false;
+          return AlertDialog(
+            title: Text('添加耗材卷 - ${type.name}'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: initialWeightController,
+                  decoration: const InputDecoration(
+                    labelText: '初始重量 (g)',
+                    hintText: '1000',
+                    prefixIcon: Icon(Icons.scale),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 16),
+                TextField(
+                  controller: remainingWeightController,
+                  decoration: const InputDecoration(
+                    labelText: '剩余重量 (g)',
+                    hintText: '1000',
+                    prefixIcon: Icon(Icons.scale),
+                  ),
+                  keyboardType: TextInputType.number,
+                ),
+                const SizedBox(height: 16),
+                SwitchListTile(
+                  title: const Text('正在使用'),
+                  subtitle: const Text('标记为当前使用的耗材卷'),
+                  value: isInUse,
+                  onChanged: (value) {
+                    setState(() {
+                      isInUse = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text('取消'),
               ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: remainingWeightController,
-              decoration: const InputDecoration(
-                labelText: '剩余重量 (g)',
-                hintText: '1000',
-                prefixIcon: Icon(Icons.scale),
+              ElevatedButton(
+                onPressed: () {
+                  final initialWeight = int.tryParse(initialWeightController.text);
+                  final remainingWeight =
+                      int.tryParse(remainingWeightController.text);
+
+                  if (initialWeight == null ||
+                      remainingWeight == null ||
+                      initialWeight <= 0 ||
+                      remainingWeight < 0) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('请输入有效的重量')),
+                    );
+                    return;
+                  }
+
+                  Navigator.pop(context, true);
+                },
+                child: const Text('添加'),
               ),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 16),
-            SwitchListTile(
-              title: const Text('正在使用'),
-              subtitle: const Text('标记为当前使用的耗材卷'),
-              value: isInUse,
-              onChanged: (value) {
-                isInUse = value;
-              },
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('取消'),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              final initialWeight = int.tryParse(initialWeightController.text);
-              final remainingWeight =
-                  int.tryParse(remainingWeightController.text);
-
-              if (initialWeight == null ||
-                  remainingWeight == null ||
-                  initialWeight <= 0 ||
-                  remainingWeight < 0) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('请输入有效的重量')),
-                );
-                return;
-              }
-
-              Navigator.pop(context, true);
-            },
-            child: const Text('添加'),
-          ),
-        ],
+            ],
+          );
+        },
       ),
     );
 
