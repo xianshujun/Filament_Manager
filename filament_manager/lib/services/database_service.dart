@@ -89,6 +89,8 @@ class DatabaseService {
 
   Future close() async {
     final db = await instance.database;
+    _database = null;
+    _pendingInit = null;
     db.close();
   }
 
