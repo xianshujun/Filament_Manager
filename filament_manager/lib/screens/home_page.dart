@@ -44,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       });
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('加载数据失败: $e')),
+          const SnackBar(content: Text('加载数据失败，请重试')),
         );
       }
     }
@@ -79,12 +79,12 @@ class _HomePageState extends State<HomePage> {
   Future<void> _showAddSpoolForm(FilamentType type) async {
     final initialWeightController = TextEditingController(text: '1000');
     final remainingWeightController = TextEditingController(text: '1000');
+    bool isInUse = false;
 
     final result = await showDialog<bool>(
       context: context,
       builder: (context) => StatefulBuilder(
         builder: (context, setState) {
-          bool isInUse = false;
           return AlertDialog(
             title: Text('添加耗材卷 - ${type.name}'),
             content: Column(
@@ -143,6 +143,13 @@ class _HomePageState extends State<HomePage> {
                     return;
                   }
 
+                  if (remainingWeight > initialWeight) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('剩余重量不能大于初始重量')),
+                    );
+                    return;
+                  }
+
                   Navigator.pop(context, true);
                 },
                 child: const Text('添加'),
@@ -170,7 +177,7 @@ class _HomePageState extends State<HomePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('添加失败: $e')),
+            const SnackBar(content: Text('添加失败，请重试')),
           );
         }
       }
@@ -215,6 +222,13 @@ class _HomePageState extends State<HomePage> {
                 return;
               }
 
+              if (remainingWeight > spool.initialWeight) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('剩余重量不能大于初始重量')),
+                );
+                return;
+              }
+
               Navigator.pop(context, true);
             },
             child: const Text('保存'),
@@ -238,7 +252,7 @@ class _HomePageState extends State<HomePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('更新失败: $e')),
+            const SnackBar(content: Text('更新失败，请重试')),
           );
         }
       }
@@ -279,7 +293,7 @@ class _HomePageState extends State<HomePage> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('删除失败: $e')),
+            const SnackBar(content: Text('删除失败，请重试')),
           );
         }
       }

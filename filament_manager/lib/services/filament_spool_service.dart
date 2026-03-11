@@ -47,8 +47,16 @@ class FilamentSpoolService {
     required int spoolId,
     required int newRemainingWeight,
   }) async {
+    if (newRemainingWeight < 0) {
+      throw ArgumentError('剩余重量不能为负数');
+    }
+
     final spool = await getSpoolById(spoolId);
     if (spool == null) return;
+
+    if (newRemainingWeight > spool.initialWeight) {
+      throw ArgumentError('剩余重量不能大于初始重量');
+    }
 
     final usedWeight = spool.remainingWeight - newRemainingWeight;
     
