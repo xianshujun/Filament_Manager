@@ -6,6 +6,6 @@ void main() {
   testWidgets('App smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(const FilamentManagerApp());
 
-    expect(find.text('耗材管理'), findsOneWidget);
+    expect(find.text('耗材管家'), findsOneWidget);
   });
 }

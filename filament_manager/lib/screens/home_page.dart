@@ -87,40 +87,57 @@ class _HomePageState extends State<HomePage> {
         builder: (context, setState) {
           return AlertDialog(
             title: Text('添加耗材卷 - ${type.name}'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: initialWeightController,
-                  decoration: const InputDecoration(
-                    labelText: '初始重量 (g)',
-                    hintText: '1000',
-                    prefixIcon: Icon(Icons.scale),
+            content: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  TextField(
+                    controller: initialWeightController,
+                    decoration: const InputDecoration(
+                      labelText: '初始重量 (g)',
+                      hintText: '1000',
+                      prefixIcon: Icon(Icons.scale),
+                    ),
+                    keyboardType: TextInputType.number,
                   ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: remainingWeightController,
-                  decoration: const InputDecoration(
-                    labelText: '剩余重量 (g)',
-                    hintText: '1000',
-                    prefixIcon: Icon(Icons.scale),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: remainingWeightController,
+                    decoration: const InputDecoration(
+                      labelText: '剩余重量 (g)',
+                      hintText: '1000',
+                      prefixIcon: Icon(Icons.scale),
+                    ),
+                    keyboardType: TextInputType.number,
                   ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 16),
-                SwitchListTile(
-                  title: const Text('正在使用'),
-                  subtitle: const Text('标记为当前使用的耗材卷'),
-                  value: isInUse,
-                  onChanged: (value) {
-                    setState(() {
-                      isInUse = value;
-                    });
-                  },
-                ),
-              ],
+                  const SizedBox(height: 16),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('正在使用'),
+                            Text(
+                              '标记为当前使用的耗材卷',
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Switch(
+                        value: isInUse,
+                        activeColor: AppTheme.primaryGreen,
+                        onChanged: (value) {
+                          setState(() {
+                            isInUse = value;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             actions: [
               TextButton(
@@ -304,7 +321,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('耗材管理'),
+        title: const Text('耗材管家'),
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
