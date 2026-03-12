@@ -111,8 +111,8 @@
    - 保存到临时目录
 
 3. **创建 Release**
-   - 上传 `filament_manager.exe`
-   - 上传 `app-release.apv`
+   - 上传 `filament_manager_windows.zip`（包含完整的 Windows 应用程序）
+   - 上传 `app-release.apk`
    - 自动生成 Release Notes
 
 ## 下载构建产物
@@ -131,8 +131,8 @@
 1. 访问仓库的 Releases 页面
 2. 选择一个 Release 版本
 3. 下载附件：
-   - `filament_manager.exe` - Windows 安装包
-   - `app-release.apv` - Android 安装包
+   - `filament_manager_windows.zip` - Windows 应用程序（解压后运行 `filament_manager.exe`）
+   - `app-release.apk` - Android 安装包
 
 ## 缓存策略
 
