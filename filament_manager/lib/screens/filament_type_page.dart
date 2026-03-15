@@ -406,6 +406,7 @@ class _FilamentTypePageState extends State<FilamentTypePage> {
         onPressed: _showAddTypeDialog,
         icon: const Icon(Icons.add),
         label: const Text('添加类型'),
+        shape: const StadiumBorder(),
       ),
     );
   }
