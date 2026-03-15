@@ -88,11 +88,14 @@ jobs:
           name: filament-manager-android
           path: ./android-artifact
 
+      - name: Package Windows artifact
+        run: cd windows-artifact && zip -r ../filament_manager_windows.zip .
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./windows-artifact/filament_manager.exe
+            ./filament_manager_windows.zip
             ./android-artifact/app-release.apk
           generate_release_notes: true
           draft: false

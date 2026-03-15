@@ -207,7 +207,7 @@ class AppTheme {
         backgroundColor: primaryGreen,
         foregroundColor: Colors.white,
         elevation: 4,
-        shape: CircleBorder(),
+        shape: StadiumBorder(),
       ),
       
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(

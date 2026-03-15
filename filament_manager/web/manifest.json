@@ -1,6 +1,6 @@
 {
-    "name": "filament_manager",
-    "short_name": "filament_manager",
+    "name": "耗材管家",
+    "short_name": "耗材管家",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
