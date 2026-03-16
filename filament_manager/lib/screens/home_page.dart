@@ -77,113 +77,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _showAddSpoolForm(FilamentType type) async {
-    final initialWeightController = TextEditingController(text: '1000');
-    final remainingWeightController = TextEditingController(text: '1000');
-    bool isInUse = false;
-
-    final result = await showDialog<bool>(
+    final result = await showDialog<Map<String, dynamic>>(
       context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setState) {
-          return AlertDialog(
-            title: Text('添加耗材卷 - ${type.name}'),
-            content: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: initialWeightController,
-                    decoration: const InputDecoration(
-                      labelText: '初始重量 (g)',
-                      hintText: '1000',
-                      prefixIcon: Icon(Icons.scale),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: remainingWeightController,
-                    decoration: const InputDecoration(
-                      labelText: '剩余重量 (g)',
-                      hintText: '1000',
-                      prefixIcon: Icon(Icons.scale),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('正在使用'),
-                            Text(
-                              '标记为当前使用的耗材卷',
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Switch(
-                        value: isInUse,
-                        activeColor: AppTheme.primaryGreen,
-                        onChanged: (value) {
-                          setState(() {
-                            isInUse = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('取消'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  final initialWeight = int.tryParse(initialWeightController.text);
-                  final remainingWeight =
-                      int.tryParse(remainingWeightController.text);
-
-                  if (initialWeight == null ||
-                      remainingWeight == null ||
-                      initialWeight <= 0 ||
-                      remainingWeight < 0) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('请输入有效的重量')),
-                    );
-                    return;
-                  }
-
-                  if (remainingWeight > initialWeight) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('剩余重量不能大于初始重量')),
-                    );
-                    return;
-                  }
-
-                  Navigator.pop(context, true);
-                },
-                child: const Text('添加'),
-              ),
-            ],
-          );
-        },
-      ),
+      builder: (context) => _AddSpoolFormDialog(type: type),
     );
 
-    if (result == true && mounted) {
+    if (result != null && mounted) {
       try {
         await FilamentSpoolService.addSpool(
           typeId: type.id!,
-          initialWeight: int.parse(initialWeightController.text),
-          remainingWeight: int.parse(remainingWeightController.text),
-          isInUse: isInUse,
+          initialWeight: result['initialWeight'] as int,
+          remainingWeight: result['remainingWeight'] as int,
+          isInUse: result['isInUse'] as bool,
         );
         await _loadData();
         if (mounted) {
@@ -381,6 +286,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: _showAddSpoolDialog,
         icon: const Icon(Icons.add),
         label: const Text('添加耗材卷'),
+        shape: const StadiumBorder(),
       ),
     );
   }
@@ -459,6 +365,126 @@ class _SelectTypeDialogState extends State<_SelectTypeDialog> {
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: const Text('取消'),
+        ),
+      ],
+    );
+  }
+}
+
+class _AddSpoolFormDialog extends StatefulWidget {
+  final FilamentType type;
+
+  const _AddSpoolFormDialog({required this.type});
+
+  @override
+  State<_AddSpoolFormDialog> createState() => _AddSpoolFormDialogState();
+}
+
+class _AddSpoolFormDialogState extends State<_AddSpoolFormDialog> {
+  final _initialWeightController = TextEditingController(text: '1000');
+  final _remainingWeightController = TextEditingController(text: '1000');
+  bool _isInUse = false;
+
+  @override
+  void dispose() {
+    _initialWeightController.dispose();
+    _remainingWeightController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Text('添加耗材卷 - ${widget.type.name}'),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: _initialWeightController,
+              decoration: const InputDecoration(
+                labelText: '初始重量 (g)',
+                hintText: '1000',
+                prefixIcon: Icon(Icons.scale),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _remainingWeightController,
+              decoration: const InputDecoration(
+                labelText: '剩余重量 (g)',
+                hintText: '1000',
+                prefixIcon: Icon(Icons.scale),
+              ),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('正在使用'),
+                      Text(
+                        '标记为当前使用的耗材卷',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
+                ),
+                Switch(
+                  value: _isInUse,
+                  activeColor: AppTheme.primaryGreen,
+                  activeTrackColor: AppTheme.primaryGreenLight,
+                  onChanged: (value) {
+                    setState(() {
+                      _isInUse = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text('取消'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+            final initialWeight =
+                int.tryParse(_initialWeightController.text);
+            final remainingWeight =
+                int.tryParse(_remainingWeightController.text);
+
+            if (initialWeight == null ||
+                remainingWeight == null ||
+                initialWeight <= 0 ||
+                remainingWeight < 0) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('请输入有效的重量')),
+              );
+              return;
+            }
+
+            if (remainingWeight > initialWeight) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('剩余重量不能大于初始重量')),
+              );
+              return;
+            }
+
+            Navigator.pop(context, {
+              'initialWeight': initialWeight,
+              'remainingWeight': remainingWeight,
+              'isInUse': _isInUse,
+            });
+          },
+          child: const Text('添加'),
         ),
       ],
     );
